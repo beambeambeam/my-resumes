@@ -22,8 +22,27 @@
       "!**/.source"
     ]
   },
-  "extends": [
-    "ultracite/core",
-    "ultracite/react"
-  ]
+  "linter": {
+    "rules": {
+      "style": {
+        "noNestedTernary": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "apps/web/src/routes/api/auth/$.ts",
+        "apps/web/src/routes/api/rpc/$.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    }
+  ],
+  "extends": ["ultracite/core", "ultracite/react"]
 }

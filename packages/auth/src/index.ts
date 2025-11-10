@@ -1,18 +1,30 @@
-import { reactStartCookies } from 'better-auth/react-start';
-import { betterAuth, type BetterAuthOptions } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@my-resumes/db";
-import * as schema from "@my-resumes/db/schema/auth";
+import {
+  account,
+  session,
+  user,
+  verification,
+} from "@my-resumes/db/schema/auth";
+import { type BetterAuthOptions, betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { reactStartCookies } from "better-auth/react-start";
+
+const schema = {
+  account,
+  session,
+  user,
+  verification,
+};
 
 export const auth = betterAuth<BetterAuthOptions>({
-	database: drizzleAdapter(db, {
-		provider: "pg",
+  database: drizzleAdapter(db, {
+    provider: "pg",
 
-		schema: schema,
-	}),
-	trustedOrigins: [process.env.CORS_ORIGIN || ""],
-	emailAndPassword: {
-		enabled: true,
-	},
-  plugins: [reactStartCookies()]
+    schema,
+  }),
+  trustedOrigins: [process.env.CORS_ORIGIN || ""],
+  emailAndPassword: {
+    enabled: true,
+  },
+  plugins: [reactStartCookies()],
 });
